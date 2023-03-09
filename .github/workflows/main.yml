@@ -1,0 +1,23 @@
+
+name: CI
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '**/README.md'
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.7.5'
+          channel: 'dev'
+      - run: flutter pub get
+      - run: flutter test
+
+
