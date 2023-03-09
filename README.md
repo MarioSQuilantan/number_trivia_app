@@ -1,6 +1,8 @@
 # number_trivia_app
 
-A new Flutter project.
+[![CI](https://github.com/MarioSQuilantan/number_trivia_app/actions/workflows/main.yml/badge.svg)](https://github.com/MarioSQuilantan/number_trivia_app/actions/workflows/main.yml)
+
+A number trivia project.
 
 ## Getting Started
 
