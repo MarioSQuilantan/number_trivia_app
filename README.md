@@ -39,21 +39,26 @@ Run the project in an Android or iOS device.
 
 ## Number Trivia Features:
 
-* Home
+* work in progress
 
 ### Up-Coming Features:
 
-* Cache in local storage the number trivia
+* fetch a random number trivia
+* fetch a number trivia by number
+* store a number trivia data in local storage
 
 ### Libraries & Tools Used
 
 * [Dio](https://pub.dev/packages/dio) (A HTTP client for Dart/Flutter)
 * [Flutter BLoC](https://pub.dev/packages/flutter_bloc) (Widgets that make it easy to integrate blocs and cubits into Flutter)
+* [BLoC](https://pub.dev/packages/bloc) (A dart package that helps implement the BLoC pattern)
 * [Dartz](https://pub.dev/packages/dartz) (Functional programming in Dart)
 * [Equatable](https://pub.dev/packages/equatable) (Being able to compare objects in Dart often involves having to override the == operator as well as hashCode)
 * [Get it](https://pub.dev/packages/get_it) (A Service Locator for Dart and Flutter)
 * [BLoC test](https://pub.dev/packages/bloc_test) (A package that makes testing blocs and cubits easy)
 * [Mocktail](https://pub.dev/packages/mocktail) (Mock package for Dart)
+* [Go router](https://pub.dev/packages/go_router) (A declarative routing package for Flutter)
+* [Hive](https://pub.dev/packages/mocktail) (A key-value local database)
 
 ### Folder Structure
 
@@ -76,7 +81,8 @@ lib/
 |- features/
 |- ui/
 |- main.dart
-|- routes/
+|- routes.dart
+|- injector.dart
 ```
 
 Now, lets dive into the lib folder which has the main code for the application.
@@ -101,6 +107,9 @@ This directory contains all the application level utilities/common functions of 
 core/
   |- layout/
     |- screen.layout.dart
+  |- error/
+    |- failure.dart
+    |- exception.dart
   |- utils/
     |- mask/
       |- mask.dart
@@ -112,6 +121,8 @@ core/
   |- values/
     |- constants.dart
     |- strings.dart
+    |- enums.dart
+    |- keys.dart
   |- theme/
     |- text.theme.dart
     |- colors.theme.dart
@@ -171,23 +182,17 @@ This directory contains all the ui of your application. Each screen is located i
 
 ```
 ui/
-|- pages/
-  |- login/
-    |- layouts/
-      |- desktop/
-        |- desktop.layout.dart
-        |- widgets
-      |- phone/
-        |- phone.layout.dart
-        |- widgets
-      |- tablet/
-        |- tablet.layout.dart
-        |- widgets
-    |- login.page.dart
-  ```
-
-
-
+|- login/
+  |- layouts/
+    |- desktop/
+      |- desktop.layout.dart
+    |- phone/
+      |- phone.layout.dart
+    |- tablet/
+      |- tablet.layout.dart
+  |- login.page.dart
+  |- widgets
+```
 ### Widgets
 
 Contains the common widgets that are shared across multiple screens. For example, Button, TextField etc.
@@ -201,31 +206,23 @@ widgets/
 
 ### Routes
 
-This file contains all the routes for the application.
+This file contains all the routes and navigation methods for the application.
 
 ```dart
-import 'package:flutter/material.dart';
-
-import 'ui/home/home.dart';
-import 'ui/login/login.dart';
-import 'ui/splash/splash.dart';
-
 class Routes {
   Routes._();
+  static GoRouter get call => GoRouter(
+        routes: [
+          GoRoute(
+            path: "/",
+            builder: (context, state) => const HomePage(),
+          ),
+        ],
+      );
 
-  //static variables
-  static const String splash = '/splash';
-  static const String login = '/login';
-  static const String home = '/home';
-
-  static final routes = <String, WidgetBuilder>{
-    splash: (BuildContext context) => SplashScreen(),
-    login: (BuildContext context) => LoginScreen(),
-    home: (BuildContext context) => HomeScreen(),
-  };
+  static void navigateTo(BuildContext context, String route) => context.go(route);
 }
 ```
-
 ### Injector
 
 This file contains the dependency injection cases.
@@ -271,12 +268,13 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<<T>Bloc>(create: (_) => di.locator<<T>Bloc>()),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
           title: 'MyApp',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const HomePage()),
+          routerConfig: Routes.call,
+      ),
     );
   }
 }
