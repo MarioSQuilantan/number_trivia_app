@@ -1,4 +1,4 @@
-import 'package:number_trivia_app/core/network/network_client.dart';
+import 'network_client.dart';
 import 'package:http/http.dart' as http_client;
 
 class HttpClient implements NetworkClient {
