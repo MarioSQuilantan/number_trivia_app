@@ -5,10 +5,8 @@ import 'package:number_trivia_app/core/utils/json_reader.util.dart';
 import 'package:number_trivia_app/features/number_trivia/data/models/number_trivia.model.dart';
 
 void main() {
-  const tNumberTriviaModel = NumberTriviaModel(
-    text: 'tText',
-    number: 1,
-  );
+  final tNumberTriviaModel = NumberTriviaModel.fromJson(jsonDecode(jsonReader('number_trivia')));
+
   final tNumberTrivia = tNumberTriviaModel.toEntity();
 
   group('toEntity should', () {
@@ -27,6 +25,18 @@ void main() {
       () async {
         //arrange(setup).
         final Map<String, dynamic> jsonMap = jsonDecode(jsonReader('number_trivia'));
+        //act(run).
+        final result = NumberTriviaModel.fromJson(jsonMap);
+        //assert(verify).
+        expect(result, equals(tNumberTriviaModel));
+      },
+    );
+
+    test(
+      'return a valid model fromJson when the number is a double',
+      () async {
+        //arrange(setup).
+        final Map<String, dynamic> jsonMap = jsonDecode(jsonReader('number_trivia_double'));
         //act(run).
         final result = NumberTriviaModel.fromJson(jsonMap);
         //assert(verify).
