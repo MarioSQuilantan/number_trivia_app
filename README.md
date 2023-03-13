@@ -81,7 +81,7 @@ lib/
 |- features/
 |- ui/
 |- main.dart
-|- routes.dart
+|- app_routes.dart
 |- injector.dart
 ```
 
@@ -156,8 +156,8 @@ This folder contains the State Manager in this case BLoC.
 This folder is the inner layer which shouldn't be susceptible to the whims of changing data sources. It will contain only the core business logic (use cases) and business objects (entities).
 
 ```
-|- use_cases
-  |- get_user_by_id.use_case.dart
+|- usecases
+  |- get_user_by_id.usecase.dart
 |- entities
   |- user.entity.dart
 |- repositories
@@ -169,8 +169,8 @@ This folder is the inner layer which shouldn't be susceptible to the whims of ch
 The data layer consists of a Repository implementation (the contract comes from the domain layer) and data sources.
 
 ```
-|- data_sources/
-  |- api.data_source.dart
+|- datasources/
+  |- api.datasource.dart
 |- models/
   |- user.model.dart
 |- repositories/
@@ -185,11 +185,11 @@ ui/
 |- login/
   |- layouts/
     |- desktop/
-      |- desktop.layout.dart
+      |- login_desktop.layout.dart
     |- phone/
-      |- phone.layout.dart
+      |- login_phone.layout.dart
     |- tablet/
-      |- tablet.layout.dart
+      |- login_tablet.layout.dart
   |- login.page.dart
   |- widgets
 ```
@@ -204,17 +204,17 @@ widgets/
 |- progress_indicator.widget.dart
 ```
 
-### Routes
+### AppRoutes
 
 This file contains all the routes and navigation methods for the application.
 
 ```dart
-class Routes {
-  Routes._();
+class AppRoutes {
+  AppRoutes._();
   static GoRouter get call => GoRouter(
         routes: [
           GoRoute(
-            path: "/",
+            path: Routes.home,
             builder: (context, state) => const HomePage(),
           ),
         ],
@@ -232,20 +232,20 @@ final locator = GetIt.instance;
 
 void init() {
   // blocs
-  locator.registerFactory(() => <T>Bloc(getType: locator<Get<T>sUseCase>()));
+  locator.registerFactory(() => <T>Bloc(getType: locator<Get<T>UseCase>()));
 
   //use cases
-  locator.registerLazySingleton(() => Get<T>sUseCase(locator<<T>Repository>()));
+  locator.registerLazySingleton(() => Get<T>UseCase(locator<<T>Repository>()));
 
   // repositories
   locator.registerLazySingleton<<T>Repository>(() => <T>RepositoryImpl(locator<<T>RemoteDataSource>()));
 
   // data sources
-  locator.registerLazySingleton<<T>RemoteDataSource>(() => <T>RemoteDataSourceImp(locator<DioClient>()));
+  locator.registerLazySingleton<<T>RemoteDataSource>(() => <T>RemoteDataSourceImpl(locator<DioClient>()));
 
   // external
-  locator.registerLazySingleton(() => Dio());
-  locator.registerLazySingleton(() => DioClient(locator<Dio>()));
+  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => DioClient(locator<http.Client>()));
 }
 ```
 
@@ -273,7 +273,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          routerConfig: Routes.call,
+          routerConfig: AppRoutes.call,
       ),
     );
   }

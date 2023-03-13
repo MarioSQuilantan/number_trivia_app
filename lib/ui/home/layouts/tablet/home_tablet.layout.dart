@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PhoneLayout extends StatelessWidget {
-  const PhoneLayout({super.key});
+class HomeTabletLayout extends StatelessWidget {
+  const HomeTabletLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home phone'),
+        title: const Text('Home tablet'),
       ),
       body: Container(),
     );

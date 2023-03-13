@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DesktopLayout extends StatelessWidget {
-  const DesktopLayout({super.key});
+class HomeDesktopLayout extends StatelessWidget {
+  const HomeDesktopLayout({super.key});
 
   @override
   Widget build(BuildContext context) {

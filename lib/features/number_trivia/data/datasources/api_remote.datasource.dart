@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:number_trivia_app/core/error/exception.dart';
-import 'package:number_trivia_app/core/values/constants.dart';
-import 'package:number_trivia_app/features/number_trivia/data/models/number_trivia.model.dart';
-
+import '../../../../core/error/exception.dart';
 import '../../../../core/network/network_client.dart';
+import '../../../../core/values/constants.dart';
+import '../models/number_trivia.model.dart';
 
 abstract class ApiRemoteDataSource {
   Future<NumberTriviaModel> getRandomNumberTrivia();
