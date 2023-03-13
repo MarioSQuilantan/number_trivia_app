@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:number_trivia_app/core/network/network_client.dart';
 import 'package:http/http.dart' as http_client;
-import 'package:number_trivia_app/core/values/constants.dart';
 
 class HttpClient implements NetworkClient {
   final http_client.Client http;
@@ -14,14 +11,6 @@ class HttpClient implements NetworkClient {
     String url, {
     Map<String, dynamic>? queryParameters,
   }) {
-    return http.get(
-      Uri(
-        path: url,
-        queryParameters: queryParameters,
-      ),
-      headers: {
-        HttpHeaders.contentTypeHeader: 'application/json; charset=UTF-8',
-      },
-    ).timeout(ApiConstants.connectionTimeout);
+    return http.get(Uri.parse(url).replace(queryParameters: queryParameters));
   }
 }
