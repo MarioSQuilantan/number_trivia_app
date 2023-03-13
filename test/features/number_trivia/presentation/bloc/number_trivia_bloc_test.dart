@@ -34,7 +34,7 @@ void main() {
       when(() => getRandomNumberTrivia(NoParams())).thenAnswer((_) async => Right(tNumberTrivia));
       return numberTriviaBloc;
     },
-    act: (bloc) => bloc.add(GetRandomNumberTrivia()),
+    act: (bloc) => bloc.add(GetRandomNumberTriviaEvent()),
     wait: const Duration(milliseconds: 100),
     expect: () => [
       NumberTriviaIsLoading(),
@@ -51,7 +51,7 @@ void main() {
       when(() => getRandomNumberTrivia(NoParams())).thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return numberTriviaBloc;
     },
-    act: (bloc) => bloc.add(GetRandomNumberTrivia()),
+    act: (bloc) => bloc.add(GetRandomNumberTriviaEvent()),
     wait: const Duration(milliseconds: 100),
     expect: () => [
       NumberTriviaIsLoading(),

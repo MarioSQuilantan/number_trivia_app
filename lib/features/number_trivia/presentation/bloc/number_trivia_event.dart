@@ -7,4 +7,4 @@ abstract class NumberTriviaEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetRandomNumberTrivia extends NumberTriviaEvent {}
+class GetRandomNumberTriviaEvent extends NumberTriviaEvent {}
