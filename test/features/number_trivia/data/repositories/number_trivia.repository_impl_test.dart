@@ -47,7 +47,7 @@ void main() {
         final result = await repository.getRandomNumberTrivia();
         //assert(verify).
         verify(dataSource.getRandomNumberTrivia);
-        expect(result, equals(const Left(ServerFailure(''))));
+        expect(result, equals(const Left(ServerFailure('Server error'))));
       },
     );
 
