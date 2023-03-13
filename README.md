@@ -49,7 +49,7 @@ Run the project in an Android or iOS device.
 
 ### Libraries & Tools Used
 
-* [Dio](https://pub.dev/packages/dio) (A HTTP client for Dart/Flutter)
+* [http](https://pub.dev/packages/http) (A HTTP library for Dart/Flutter)
 * [Flutter BLoC](https://pub.dev/packages/flutter_bloc) (Widgets that make it easy to integrate blocs and cubits into Flutter)
 * [BLoC](https://pub.dev/packages/bloc) (A dart package that helps implement the BLoC pattern)
 * [Dartz](https://pub.dev/packages/dartz) (Functional programming in Dart)
